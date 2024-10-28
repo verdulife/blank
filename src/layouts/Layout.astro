@@ -1,50 +1,47 @@
 ---
-interface Props {
-	title: string;
-}
+import "@fontsource-variable/inter";
 
-const { title } = Astro.props;
+import { ViewTransitions } from "astro:transitions";
+import Header from "@/components/Header.astro";
+import Background from "@/components/Background.astro";
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={Astro.props.description} />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Blank" />
+    <link rel="apple-touch-icon" type="image/png" href="/mobile.png" />
+    <title>{Astro.props.title}</title>
+    <ViewTransitions />
+    <meta name="author" content="verdu | verdu@live.com" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={Astro.props.title} />
+    <meta property="og:url" content="https://blank.vercel.com" />
+    <meta property="og:image" content="/card.jpg" />
+    <meta property="og:description" content={Astro.props.description} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={Astro.props.title} />
+    <meta name="twitter:description" content={Astro.props.description} />
+    <meta name="twitter:image" content="/card.jpg" />
+    <meta name="twitter:image:alt" content={Astro.props.title} />
+  </head>
+  <body class="text-balance bg-slate-950 text-slate-100">
+    <Header />
+    <div class="flex min-h-dvh flex-col items-center overflow-hidden">
+      <slot />
+    </div>
+
+    <Background />
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>

@@ -1,0 +1,44 @@
+---
+import Section from "@/components/Section.astro";
+import Card from "@/components/Card.astro";
+import Download from "@/components/Download.astro";
+import Ai from "@/assets/Ai.astro";
+import Acrobat from "@/assets/Acrobat.astro";
+import BusinessCard from "@/assets/BusinessCard.astro";
+
+import { getCollection } from "astro:content";
+
+const templates = await getCollection("templates");
+---
+
+<Section>
+  <h2 class="px-6 text-xl text-slate-600">Usado recientemente</h2>
+
+  <div class="mt-6 grid grid-cols-3 gap-6">
+    {
+      templates.map(({ data }) => (
+        <Card>
+          <div class="flex flex-col">
+            <h3 class="mt-6 text-xl">{data.title}</h3>
+            <p class="text-sm text-slate-600">
+              {data.width}x{data.height}mm
+            </p>
+
+            <span class="mt-auto inline-flex">
+              <Download href={data.cmyk}>
+                <Ai class="size-5" />
+                cmyk
+              </Download>
+              <Download href={data.rgb}>
+                <Acrobat class="size-5" />
+                rgb
+              </Download>
+            </span>
+          </div>
+
+          <BusinessCard />
+        </Card>
+      ))
+    }
+  </div>
+</Section>

@@ -1,0 +1,27 @@
+---
+import Section from "@/components/Section.astro";
+import Search from "@/assets/Search.astro";
+---
+
+<Section class="items-center pt-36 pb-24">
+  <h1 class="max-w-3xl text-center text-5xl [&>span]:text-orange-300">
+    Plantillas en blanco para <span>tarjetas</span>, <span>flyers</span>, <span
+      >posters</span
+    > y mucho más
+  </h1>
+
+  <search>
+    <form>
+      <div
+        class="inline-flex items-center w-[450px] max-w-full gap-2 rounded-full bg-slate-800 px-6 py-3 text-slate-500 mt-10"
+      >
+        <Search class="size-6" />
+        <input
+          type="search"
+          placeholder='Busca plantillas para "Tarjetas de visita"'
+          class="w-full bg-transparent outline-none placeholder:text-slate-500 text-lg"
+        />
+      </div>
+    </form>
+  </search>
+</Section>

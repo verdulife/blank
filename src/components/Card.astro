@@ -1,23 +1,29 @@
 ---
 export interface Props {
+  class?: string;
   id: string;
   title: string;
   width: number;
   height: number;
+  color: string;
 }
 
 import Download from "@/components/Download.astro";
 import Printer from "@/assets/Printer.astro";
 import Display from "@/assets/Display.astro";
-import BusinessCard from "@/assets/BusinessCard.astro";
+import Papers from "@/assets/Papers.astro";
 
 import { getUrl } from "@/lib/utils";
 
-const { id, title, width, height } = Astro.props;
+const { id, title, width, height, color } = Astro.props;
 ---
 
 <article
-  class="group flex gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md"
+  data-id={id}
+  class:list={[
+    "group flex gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md",
+    Astro.props.class,
+  ]}
 >
   <div class="flex flex-col">
     <h3 class="mt-6 text-xl">{title}</h3>
@@ -28,16 +34,22 @@ const { id, title, width, height } = Astro.props;
     <span
       class="mt-auto inline-flex gap-1 text-slate-400 transition-colors [&>*:hover]:text-slate-200"
     >
-      <Download href={getUrl({ width, height, color: "cmyk" })} id={id}>
+      <Download
+        href={getUrl({ width, height, color: "cmyk" })}
+        data={Astro.props}
+      >
         <Printer class="size-5" />
         cmyk
       </Download>
-      <Download href={getUrl({ width, height, color: "rgb" })} id={id}>
+      <Download
+        href={getUrl({ width, height, color: "rgb" })}
+        data={Astro.props}
+      >
         <Display class="size-5" />
         rgb
       </Download>
     </span>
   </div>
 
-  <BusinessCard />
+  <Papers color={color} />
 </article>

@@ -1,38 +1,71 @@
 ---
 import Section from "@/components/Section.astro";
 import Card from "@/components/Card.astro";
-import Download from "@/components/Download.astro";
-import Printer from "@/assets/Printer.astro";
-import Display from "@/assets/Display.astro";
-import BusinessCard from "@/assets/BusinessCard.astro";
-
-import { getCollection } from "astro:content";
-import { getUrl } from "@/lib/utils";
-
-const templates = await getCollection("templates");
 ---
 
 <Section id="commonUse" class="hidden">
-  <h2 class="px-6 text-xl text-slate-600">Usado recientemente</h2>
+  <h2 class="px-6 text-xl text-slate-600">Lo más usado</h2>
 
   <div class="mt-6 grid grid-cols-3 gap-6">
-    {
-      templates.map(({ data: { title, width, height } }) => (
-        <Card title={title} width={width} height={height} />
-      ))
-    }
+    <Card id={""} title={""} width={0} height={0} class="hidden" />
+    <Card id={""} title={""} width={0} height={0} class="hidden" />
+    <Card id={""} title={""} width={0} height={0} class="hidden" />
   </div>
 </Section>
 
 <script>
+  import { LOCAL_KEY } from "@/lib/consts";
+  import { getUrl } from "@/lib/utils";
+
   function init_getCommonUse() {
     const section = document.querySelector("#commonUse");
-    const localCommonUse = localStorage.getItem("commonUse");
+    const cards = section?.querySelectorAll("div>article");
+    const localCommonUse = localStorage.getItem(LOCAL_KEY);
 
-    if (!section || !localCommonUse) return;
+    if (!section || !cards || !localCommonUse) return;
 
-    section.classList.remove("hidden");
-    console.log(localCommonUse);
+    const parsedLocalCommonUse = JSON.parse(localCommonUse);
+    const top3 = parsedLocalCommonUse
+      .sort((a: { count: number }, b: { count: number }) => b.count - a.count)
+      .slice(0, 3);
+
+    cards.forEach(async (card, i) => {
+      const title = card.querySelector("h3") as HTMLHeadingElement;
+      const size = card.querySelector("p") as HTMLParagraphElement;
+      const cmyk = card.querySelector("a:first-of-type") as HTMLAnchorElement;
+      const rgb = card.querySelector("a:last-of-type") as HTMLAnchorElement;
+      const cardEl = card as HTMLElement;
+
+      if (!top3[i]) return;
+
+      cardEl.dataset.id = top3[i].id;
+      title.textContent = top3[i].title;
+      size.textContent = `${top3[i].width}x${top3[i].height}mm`;
+
+      cmyk.dataset.id = top3[i].id;
+      cmyk.dataset.title = top3[i].title;
+      cmyk.dataset.width = top3[i].width;
+      cmyk.dataset.height = top3[i].height;
+      cmyk.href = getUrl({
+        width: top3[i].width,
+        height: top3[i].height,
+        color: "cmyk",
+      });
+
+      rgb.dataset.id = top3[i].id;
+      rgb.dataset.title = top3[i].title;
+      rgb.dataset.width = top3[i].width;
+      rgb.dataset.height = top3[i].height;
+      rgb.href = getUrl({
+        width: top3[i].width,
+        height: top3[i].height,
+        color: "rgb",
+      });
+
+      card.classList.remove("hidden");
+    });
+
+    if (top3.length > 0) section.classList.remove("hidden");
   }
 
   init_getCommonUse();

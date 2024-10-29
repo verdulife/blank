@@ -12,8 +12,14 @@ const templates = await getCollection("templates");
 
   <div class="mt-6 grid grid-cols-3 gap-6">
     {
-      templates.map(({ id, data: { title, width, height } }) => (
-        <Card id={id} title={title} width={width} height={height} />
+      templates.map(({ id, data: { title, width, height, color } }) => (
+        <Card
+          id={id}
+          title={title}
+          width={width}
+          height={height}
+          color={color}
+        />
       ))
     }
   </div>

@@ -1,31 +1,56 @@
 ---
 interface Props {
   href: string;
-  id: string;
+  data: {
+    id: string;
+    title: string;
+    width: number;
+    height: number;
+  };
 }
 
-const { href, id } = Astro.props;
+const { href, data } = Astro.props;
 ---
 
 <a
   data-download-button
   href={href}
-  data-id={id}
+  data-id={data.id}
+  data-title={data.title}
+  data-width={data.width}
+  data-height={data.height}
   class="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-950 px-4 py-2 text-sm"
 >
   <slot />
 </a>
 
 <script>
+  import { LOCAL_KEY } from "@/lib/consts";
+
   function init_downloadButton() {
     const download = document.querySelectorAll("[data-download-button]");
+    if (!download) return;
 
     download.forEach((el) => {
       el.addEventListener("click", (ev) => {
         const target = ev.target as HTMLAnchorElement;
-        const { id } = target.dataset;
+        const { id, title, width, height } = target.dataset;
 
-        console.log(id);
+        if (!id) return;
+
+        const localCommonUse = localStorage.getItem(LOCAL_KEY);
+        const newItem = { count: 1, id, title, width, height };
+        let commonUse = [newItem];
+
+        if (localCommonUse) {
+          commonUse = JSON.parse(localCommonUse);
+          const item = commonUse.find((item) => item.id === id);
+
+          if (item) item.count++;
+          else commonUse.push(newItem);
+        }
+
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(commonUse));
       });
     });
   }

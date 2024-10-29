@@ -5,7 +5,8 @@ const templateCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     width: z.number(),
-    height: z.number()
+    height: z.number(),
+    color: z.string()
   }),
 });
 

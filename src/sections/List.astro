@@ -1,7 +1,20 @@
 ---
 import Section from "@/components/Section.astro";
+import Card from "@/components/Card.astro";
+
+import { getCollection } from "astro:content";
+
+const templates = await getCollection("templates");
 ---
 
 <Section class="pb-24 pt-36">
   <h2 class="px-6 text-xl text-slate-600">Lista de plantillas</h2>
+
+  <div class="mt-6 grid grid-cols-3 gap-6">
+    {
+      templates.map(({ id, data: { title, width, height } }) => (
+        <Card id={id} title={title} width={width} height={height} />
+      ))
+    }
+  </div>
 </Section>

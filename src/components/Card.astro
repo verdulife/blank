@@ -1,3 +1,43 @@
-<article class="flex bg-slate-900 p-6 rounded-lg shadow-md gap-10 overflow-hidden group">
-  <slot />
+---
+export interface Props {
+  id: string;
+  title: string;
+  width: number;
+  height: number;
+}
+
+import Download from "@/components/Download.astro";
+import Printer from "@/assets/Printer.astro";
+import Display from "@/assets/Display.astro";
+import BusinessCard from "@/assets/BusinessCard.astro";
+
+import { getUrl } from "@/lib/utils";
+
+const { id, title, width, height } = Astro.props;
+---
+
+<article
+  class="group flex gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md"
+>
+  <div class="flex flex-col">
+    <h3 class="mt-6 text-xl">{title}</h3>
+    <p class="text-sm text-slate-600">
+      {width}x{height}mm
+    </p>
+
+    <span
+      class="mt-auto inline-flex gap-1 text-slate-400 transition-colors [&>*:hover]:text-slate-200"
+    >
+      <Download href={getUrl({ width, height, color: "cmyk" })} id={id}>
+        <Printer class="size-5" />
+        cmyk
+      </Download>
+      <Download href={getUrl({ width, height, color: "rgb" })} id={id}>
+        <Display class="size-5" />
+        rgb
+      </Download>
+    </span>
+  </div>
+
+  <BusinessCard />
 </article>

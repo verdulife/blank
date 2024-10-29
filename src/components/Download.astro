@@ -1,6 +1,35 @@
+---
+interface Props {
+  href: string;
+  id: string;
+}
+
+const { href, id } = Astro.props;
+---
+
 <a
-  href={Astro.props.href}
+  data-download-button
+  href={href}
+  data-id={id}
   class="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-950 px-4 py-2 text-sm"
 >
   <slot />
 </a>
+
+<script>
+  function init_downloadButton() {
+    const download = document.querySelectorAll("[data-download-button]");
+
+    download.forEach((el) => {
+      el.addEventListener("click", (ev) => {
+        const target = ev.target as HTMLAnchorElement;
+        const { id } = target.dataset;
+
+        console.log(id);
+      });
+    });
+  }
+
+  init_downloadButton();
+  document.addEventListener("astro:after-swap", init_downloadButton);
+</script>

@@ -5,9 +5,7 @@ const templateCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     width: z.number(),
-    height: z.number(),
-    cmyk: z.string(),
-    rgb: z.string()
+    height: z.number()
   }),
 });
 

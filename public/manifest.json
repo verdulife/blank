@@ -1,0 +1,28 @@
+{
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "name": "Blank | Plantillas en blanco para diseño de impresión",
+  "short_name": "Blank",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "mobile.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

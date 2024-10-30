@@ -7,9 +7,9 @@ import Card from "@/components/Card.astro";
   <h2 class="px-6 text-xl text-slate-600">Lo más usado</h2>
 
   <div class="mt-6 grid grid-cols-3 gap-6">
-    <Card id={""} title={""} width={0} height={0} class="hidden" />
-    <Card id={""} title={""} width={0} height={0} class="hidden" />
-    <Card id={""} title={""} width={0} height={0} class="hidden" />
+    <Card id={""} title={""} width={0} height={0} color={0} class="hidden" />
+    <Card id={""} title={""} width={0} height={0} color={0} class="hidden" />
+    <Card id={""} title={""} width={0} height={0} color={0} class="hidden" />
   </div>
 </Section>
 
@@ -39,10 +39,12 @@ import Card from "@/components/Card.astro";
       if (!top3[i]) return;
 
       cardEl.dataset.id = top3[i].id;
+      cardEl.dataset.color = top3[i].color;
       title.textContent = top3[i].title;
       size.textContent = `${top3[i].width}x${top3[i].height}mm`;
 
       cmyk.dataset.id = top3[i].id;
+      cmyk.dataset.color = top3[i].color;
       cmyk.dataset.title = top3[i].title;
       cmyk.dataset.width = top3[i].width;
       cmyk.dataset.height = top3[i].height;
@@ -53,6 +55,7 @@ import Card from "@/components/Card.astro";
       });
 
       rgb.dataset.id = top3[i].id;
+      rgb.dataset.color = top3[i].color;
       rgb.dataset.title = top3[i].title;
       rgb.dataset.width = top3[i].width;
       rgb.dataset.height = top3[i].height;

@@ -6,7 +6,7 @@ const templateCollection = defineCollection({
     title: z.string(),
     width: z.number(),
     height: z.number(),
-    color: z.string()
+    color: z.number()
   }),
 });
 

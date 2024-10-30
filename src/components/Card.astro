@@ -5,7 +5,7 @@ export interface Props {
   title: string;
   width: number;
   height: number;
-  color: string;
+  color: number;
 }
 
 import Download from "@/components/Download.astro";
@@ -20,6 +20,7 @@ const { id, title, width, height, color } = Astro.props;
 
 <article
   data-id={id}
+  data-color={color}
   class:list={[
     "group flex gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md",
     Astro.props.class,

@@ -6,6 +6,7 @@ export interface Props {
   width: number;
   height: number;
   color: number;
+  common?: boolean;
 }
 
 import Download from "@/components/Download.astro";
@@ -22,13 +23,13 @@ const { id, title, width, height, color } = Astro.props;
   data-id={id}
   data-color={color}
   class:list={[
-    "group flex gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md",
+    "group flex w-full gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md",
     Astro.props.class,
   ]}
 >
   <div class="flex flex-col">
-    <h3 class="mt-6 text-xl">{title}</h3>
-    <p class="text-sm text-slate-600">
+    <h3 class:list={["text-xl", !Astro.props.common && "mt-6"]}>{title}</h3>
+    <p class="mb-2 text-sm text-slate-600">
       {width}x{height}mm
     </p>
 
@@ -52,5 +53,5 @@ const { id, title, width, height, color } = Astro.props;
     </span>
   </div>
 
-  <Papers color={color} />
+  {!Astro.props.common && <Papers color={color} />}
 </article>

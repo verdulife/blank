@@ -1,0 +1,45 @@
+<div
+  class:list={[
+    "w-full rounded-full border border-slate-900 bg-white/0 px-3 py-4 backdrop-blur",
+    Astro.props.class,
+  ]}
+>
+  <nav>
+    <ul class="flex gap-1">
+      <li>
+        <a
+          href="#"
+          class="active rounded-full border border-slate-800 bg-slate-900 px-4 py-2"
+          >Todos</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="rounded-full border border-slate-800 bg-slate-900 px-4 py-2"
+          >Vertical</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="rounded-full border border-slate-800 bg-slate-900 px-4 py-2"
+          >Horizontal</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="rounded-full border border-slate-800 bg-slate-900 px-4 py-2"
+          >Cuadrado</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  a.active {
+    @apply bg-slate-700 border-slate-600;
+  }
+</style>

@@ -13,7 +13,7 @@ import Card from "@/components/Card.astro";
       title={""}
       width={0}
       height={0}
-      color={0}
+      tags={[]}
       class="hidden"
     />
     <Card
@@ -22,7 +22,7 @@ import Card from "@/components/Card.astro";
       title={""}
       width={0}
       height={0}
-      color={0}
+      tags={[]}
       class="hidden"
     />
     <Card
@@ -31,7 +31,7 @@ import Card from "@/components/Card.astro";
       title={""}
       width={0}
       height={0}
-      color={0}
+      tags={[]}
       class="hidden"
     />
   </div>
@@ -68,7 +68,7 @@ import Card from "@/components/Card.astro";
       size.textContent = `${top3[i].width}x${top3[i].height}mm`;
 
       cmyk.dataset.id = top3[i].id;
-      cmyk.dataset.color = top3[i].color;
+      cmyk.dataset.tags = top3[i].tags;
       cmyk.dataset.title = top3[i].title;
       cmyk.dataset.width = top3[i].width;
       cmyk.dataset.height = top3[i].height;
@@ -79,7 +79,7 @@ import Card from "@/components/Card.astro";
       });
 
       rgb.dataset.id = top3[i].id;
-      rgb.dataset.color = top3[i].color;
+      rgb.dataset.tags = top3[i].tags;
       rgb.dataset.title = top3[i].title;
       rgb.dataset.width = top3[i].width;
       rgb.dataset.height = top3[i].height;

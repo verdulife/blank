@@ -5,7 +5,7 @@ export interface Props {
   title: string;
   width: number;
   height: number;
-  color: number;
+  tags: string[];
   common?: boolean;
 }
 
@@ -16,12 +16,12 @@ import Papers from "@/assets/Papers.astro";
 
 import { getUrl } from "@/lib/utils";
 
-const { id, title, width, height, color } = Astro.props;
+const { id, title, width, height, tags } = Astro.props;
 ---
 
 <article
   data-id={id}
-  data-color={color}
+  data-tags={tags}
   class:list={[
     "group flex w-full gap-10 overflow-hidden rounded-lg bg-slate-900 p-6 shadow-md",
     Astro.props.class,
@@ -53,5 +53,5 @@ const { id, title, width, height, color } = Astro.props;
     </span>
   </div>
 
-  {!Astro.props.common && <Papers color={color} />}
+  {!Astro.props.common && <Papers />}
 </article>

@@ -5,25 +5,60 @@ import Filter from "@/components/Filter.astro";
 
 import { getCollection } from "astro:content";
 
+const q = Astro.url.searchParams.get("q") || "";
 const templates = await getCollection("templates");
+const filtered = templates.filter(
+  ({
+    data: { title },
+  }: {
+    data: { title: string; width: number; height: number; tags: string[] };
+  }) => title.toLowerCase().includes(q.toLowerCase())
+);
 ---
 
-<Section class="pt-16">
-  <h2 class="text-xl px-6 text-slate-600">Lista de plantillas</h2>
+<Section id="list" class="pt-16">
+  <h2 class="px-6 text-xl text-slate-600">Lista de plantillas</h2>
 
-  <Filter class="mt-2" />
+  <!-- <Filter class="mt-2" /> -->
 
   <div class="mt-6 grid grid-cols-3 gap-6 px-6">
     {
-      templates.map(({ id, data: { title, width, height, color } }) => (
-        <Card
-          id={id}
-          title={title}
-          width={width}
-          height={height}
-          color={color}
-        />
-      ))
+      filtered.map(
+        ({
+          id,
+          data: { title, width, height, tags },
+        }: {
+          id: string;
+          data: {
+            title: string;
+            width: number;
+            height: number;
+            tags: string[];
+          };
+        }) => (
+          <Card
+            id={id}
+            title={title}
+            width={width}
+            height={height}
+            tags={tags}
+          />
+        )
+      )
     }
   </div>
 </Section>
+
+<script>
+  function init_filter() {
+    const searchParam = new URLSearchParams(window.location.search).get("q");
+    const list = document.querySelector("#list");
+
+    if (!searchParam || !list) return;
+
+    list.scrollIntoView({ behavior: "smooth" });
+  }
+
+  init_filter();
+  document.addEventListener("astro:after-swap", init_filter);
+</script>

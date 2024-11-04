@@ -1,32 +1,13 @@
----
-export interface Props {
-  class?: string;
-  color: number;
-}
-
-const { color } = Astro.props;
-const BG_COLORS = ["bg-emerald-400/20", "bg-sky-400/20", "bg-rose-400/20"];
-const BORDER_COLORS = [
-  "border-emerald-950",
-  "border-sky-950",
-  "border-rose-950",
-];
----
-
 <div class:list={["relative mb-4 aspect-[1.6] h-36", Astro.props.class]}>
   <div
     class:list={[
       "relative z-10 flex size-full origin-bottom-left flex-col justify-end rounded border border-slate-900 bg-slate-800/50 p-4 shadow transition-all duration-300 group-hover:-rotate-12 group-hover:scale-110",
-      BG_COLORS[color],
-      BORDER_COLORS[color],
     ]}
   >
   </div>
   <div
     class:list={[
       "absolute left-4 top-4 z-0 flex size-full origin-top-left flex-col justify-end rounded border border-slate-900 bg-slate-800/50 p-4 shadow transition-all duration-300 group-hover:rotate-12 group-hover:scale-110",
-      BG_COLORS[color],
-      BORDER_COLORS[color],
     ]}
   >
   </div>

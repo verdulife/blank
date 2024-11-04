@@ -10,8 +10,8 @@ import Search from "@/assets/Search.astro";
     > y mucho más
   </h1>
 
-  <search>
-    <form>
+  <search class="sticky top-32 z-10 flex w-full items-center justify-center">
+    <form id="search">
       <div
         class="mt-10 inline-flex w-[450px] max-w-full items-center gap-2 rounded-full bg-slate-800 px-6 py-3 text-slate-500"
       >
@@ -25,3 +25,36 @@ import Search from "@/assets/Search.astro";
     </form>
   </search>
 </Section>
+
+<script>
+  function init_search() {
+    const search = document.querySelector("#search");
+    const input = search?.querySelector("input") as HTMLInputElement;
+    const searchParam = new URLSearchParams(window.location.search).get("q");
+
+    if (!search || !input) return;
+    if (searchParam) input.value = searchParam;
+
+    search.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const value = input.value;
+
+      if (!value) return;
+
+      const url = new URL(window.location.href);
+      url.searchParams.set("q", value);
+      window.location.href = url.toString();
+    });
+
+    input.addEventListener("input", (ev) => {
+      if (!input.value && searchParam) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("q");
+        window.location.href = url.toString();
+      }
+    });
+  }
+
+  init_search();
+  document.addEventListener("astro:after-swap", init_search);
+</script>
